@@ -1,5 +1,7 @@
 package com.jszybisty.fixmygrammar.service.synonym;
 
+import com.jszybisty.fixmygrammar.data.BasicContentFileReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,13 +12,14 @@ import java.util.stream.Collectors;
  * Created by jakub on 20.03.2017.
  */
 @Service
-public class EnglishSynonymFinder extends SynonymFinder {
+public class EnglishSynonymFinder implements SynonymFinder {
 
     private static final String SYNONYMS_EN = "synonyms-english.txt";
-    private static final List<String> WORDS;
+    private final List<String> WORDS;
 
-    static  {
-       WORDS = readContentFromFile(SYNONYMS_EN);
+    @Autowired
+    public EnglishSynonymFinder(BasicContentFileReader basicContentFileReader) {
+        WORDS = basicContentFileReader.readContentFromFile(SYNONYMS_EN);
     }
 
     @Override

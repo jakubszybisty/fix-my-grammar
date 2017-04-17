@@ -1,14 +1,9 @@
 package com.jszybisty.fixmygrammar.service.synonym;
 
-import org.springframework.core.io.ClassPathResource;
+import com.jszybisty.fixmygrammar.data.BasicContentFileReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,14 +11,15 @@ import java.util.stream.Collectors;
  * Created by jakub on 20.03.2017.
  */
 @Service
-public class PolishSynonymFinder extends SynonymFinder {
+public class PolishSynonymFinder implements SynonymFinder {
 
+    private final List<String> WORDS;
     private static final String SYNONYMS_PL = "synonyms-polish.txt";
     private static final String SEMICOLON = ";";
-    private static final List<String> WORDS;
 
-    static  {
-        WORDS = readContentFromFile(SYNONYMS_PL);
+    @Autowired
+    public PolishSynonymFinder(BasicContentFileReader basicContentFileReader) {
+        WORDS = basicContentFileReader.readContentFromFile(SYNONYMS_PL);
     }
 
     @Override
@@ -39,7 +35,4 @@ public class PolishSynonymFinder extends SynonymFinder {
         row = row.replaceAll(SEMICOLON, ", ");
         return row;
     }
-
-
-
 }

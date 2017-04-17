@@ -14,20 +14,7 @@ import java.util.regex.Pattern;
 @SpringBootTest
 public class FixMyGrammarApplicationTests {
 
-	private List<String> findWordsFromText(String text) {
-		final List<String> words = new ArrayList<>();
-		Pattern pattern = Pattern.compile("\\w+");
-		Matcher matcher = pattern.matcher(text);
-		while (matcher.find()) {
-			words.add(matcher.group());
-		}
-		return words;
-	}
-
 	@Test
-	public void xd() {
-		List<String> wordsFromText = findWordsFromText("Mam na imie kuba. jutro ide grac w pilke? i hope so!");
-		System.out.println(wordsFromText);
+	public void loadContext() {
 	}
-
 }

@@ -5,7 +5,7 @@ package com.jszybisty.fixmygrammar.rest;
  */
 public abstract class AbstractController {
     /**
-     * Api Url
+     * Url
      */
     static final String API = "/api/v1";
     static final String SYNONYMS = API + "/synonyms";
