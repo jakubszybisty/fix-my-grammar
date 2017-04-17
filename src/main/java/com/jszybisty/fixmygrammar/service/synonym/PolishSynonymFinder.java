@@ -16,20 +16,14 @@ import java.util.stream.Collectors;
  * Created by jakub on 20.03.2017.
  */
 @Service
-public class PolishSynonymFinder implements SynonymFinder {
+public class PolishSynonymFinder extends SynonymFinder {
 
     private static final String SYNONYMS_PL = "synonyms-polish.txt";
     private static final String SEMICOLON = ";";
     private static final List<String> WORDS;
 
-    static {
-        try {
-            URI uri = new ClassPathResource(SYNONYMS_PL).getURI();
-            Path dataFile = Paths.get(uri);
-            WORDS = new ArrayList<>(Files.readAllLines(dataFile));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    static  {
+        WORDS = readContentFromFile(SYNONYMS_PL);
     }
 
     @Override
@@ -45,5 +39,7 @@ public class PolishSynonymFinder implements SynonymFinder {
         row = row.replaceAll(SEMICOLON, ", ");
         return row;
     }
+
+
 
 }

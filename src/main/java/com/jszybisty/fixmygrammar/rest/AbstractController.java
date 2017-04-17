@@ -9,6 +9,7 @@ public abstract class AbstractController {
      */
     static final String API = "/api/v1";
     static final String SYNONYMS = API + "/synonyms";
+    static final String REPETITIONS = API + "/repetitions";
 
     /**
      * Path Variable
@@ -19,5 +20,6 @@ public abstract class AbstractController {
      * Constants
      */
     static final String WORD = "word";
+    static final String TEXT = "text";
     static final String LANGUAGE = "language";
 }
