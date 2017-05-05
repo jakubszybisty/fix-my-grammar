@@ -16,9 +16,9 @@ public class DeclensionsContentReader {
 
     private static final String SPLIT_BY_COMMAS_REGEX = "\\s*,\\s*";
 
-    @Autowired
     private final BasicContentFileReader basicContentFileReader;
 
+    @Autowired
     public DeclensionsContentReader(BasicContentFileReader basicContentFileReader) {
         this.basicContentFileReader = basicContentFileReader;
     }
