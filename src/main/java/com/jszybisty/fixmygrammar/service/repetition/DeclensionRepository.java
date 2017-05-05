@@ -20,6 +20,7 @@ public class DeclensionRepository {
 
     @Autowired
     public DeclensionRepository(DeclensionsContentReader declensionsContentReader) {
-        declensions = declensionsContentReader.readContentFromFile(DECLENSIONS_PL_FILENAME);
+//        declensions = declensionsContentReader.readContentFromFile(DECLENSIONS_PL_FILENAME);
+        declensions = null;
     }
 }
