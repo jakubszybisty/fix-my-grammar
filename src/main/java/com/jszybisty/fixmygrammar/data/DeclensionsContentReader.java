@@ -1,11 +1,13 @@
 package com.jszybisty.fixmygrammar.data;
 
+import com.jszybisty.fixmygrammar.repetition.DeclensionEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 /**
@@ -23,11 +25,20 @@ public class DeclensionsContentReader {
         this.basicContentFileReader = basicContentFileReader;
     }
 
-    public Map<String, List<List<String>>> readContentFromFile(String fileName) {
-        List<String> strings = basicContentFileReader.readContentFromFile(fileName);
-        List<String[]> collect = strings
+    public List<DeclensionEntry> readContentFromFile(String fileName) {
+        return basicContentFileReader.readContentFromFile(fileName)
                 .stream()
-                .map(s -> s.split(SPLIT_BY_COMMAS_REGEX)).collect(Collectors.toList());
-        return collect.stream().collect(Collectors.groupingBy(e -> e[0], Collectors.mapping(e -> Arrays.asList(e), Collectors.toList())));
+                .map(s -> s.split(SPLIT_BY_COMMAS_REGEX))
+                .collect(Collectors.toMap(e -> e[0], e -> Arrays.asList(e), mergeForDuplicateKeys()))
+                .entrySet().stream().map(e -> new DeclensionEntry(e.getKey(), e.getValue())).collect(Collectors.toList());
+    }
+
+    private BinaryOperator<List<String>> mergeForDuplicateKeys() {
+        return (l1, l2) -> {
+            List<String> mergedList = new ArrayList<>();
+            mergedList.addAll(l1);
+            mergedList.addAll(l2);
+            return mergedList;
+        };
     }
 }

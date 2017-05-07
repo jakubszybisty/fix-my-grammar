@@ -1,6 +1,6 @@
-package com.jszybisty.fixmygrammar.service.synonym;
+package com.jszybisty.fixmygrammar.synonym;
 
-import com.jszybisty.fixmygrammar.service.Language;
+import com.jszybisty.fixmygrammar.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

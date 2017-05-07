@@ -1,8 +1,13 @@
 package com.jszybisty.fixmygrammar.rest;
 
-import com.jszybisty.fixmygrammar.service.Language;
-import com.jszybisty.fixmygrammar.service.repetition.RepetitionFinder;
-import com.jszybisty.fixmygrammar.service.synonym.SynonymFinderService;
+import com.jszybisty.fixmygrammar.Language;
+import com.jszybisty.fixmygrammar.repetition.report.RepetitionReport;
+import com.jszybisty.fixmygrammar.repetition.report.RepetitionReportService;
+import com.jszybisty.fixmygrammar.synonym.SynonymFinderService;
+import com.jszybisty.fixmygrammar.synonym.entity.SynonymSearch;
+import com.jszybisty.fixmygrammar.synonym.repository.SynonymSearchRepository;
+import com.jszybisty.fixmygrammar.synonym.statistic.SynonymSearchDataSummary;
+import com.jszybisty.fixmygrammar.synonym.statistic.SynonymSearchStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.jszybisty.fixmygrammar.rest.AbstractController.*;
 
@@ -21,12 +25,16 @@ import static com.jszybisty.fixmygrammar.rest.AbstractController.*;
 public class FixMyGrammarController {
 
     private final SynonymFinderService synonymFinderService;
-    private final RepetitionFinder repetitionFinder;
+    private final RepetitionReportService repetitionReportService;
+    private final SynonymSearchRepository synonymSearchRepository;
+    private final SynonymSearchStatisticService synonymSearchStatisticService;
 
     @Autowired
-    public FixMyGrammarController(SynonymFinderService synonymFinderService, RepetitionFinder repetitionFinder) {
+    public FixMyGrammarController(SynonymFinderService synonymFinderService, RepetitionReportService repetitionReportService, SynonymSearchRepository synonymSearchRepository, SynonymSearchStatisticService synonymSearchStatisticService) {
         this.synonymFinderService = synonymFinderService;
-        this.repetitionFinder = repetitionFinder;
+        this.repetitionReportService = repetitionReportService;
+        this.synonymSearchRepository = synonymSearchRepository;
+        this.synonymSearchStatisticService = synonymSearchStatisticService;
     }
 
     /**
@@ -40,7 +48,8 @@ public class FixMyGrammarController {
     @GetMapping(value = SYNONYMS + LANGUAGE_PATH_PARAM, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<String>> findSynonyms(@PathVariable(LANGUAGE) String language,
                                               @RequestParam(WORD) String word) {
-        return new ResponseEntity<>(synonymFinderService.findSynonyms(Language.valueOf(language.toUpperCase()), word), HttpStatus.OK);
+        synonymSearchRepository.save(new SynonymSearch(getLanguage(language), word));
+        return new ResponseEntity<>(synonymFinderService.findSynonyms(getLanguage(language), word), HttpStatus.OK);
     }
 
     /**
@@ -51,8 +60,22 @@ public class FixMyGrammarController {
      * @return map of words and its repetitions.
      */
     @GetMapping(value = REPETITIONS, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Map<String, List<String>>> checkForRepetitions(@RequestParam(TEXT) String text) {
-        return new ResponseEntity(repetitionFinder.findRepetitions(text), HttpStatus.OK);
+    ResponseEntity<RepetitionReport> checkForRepetitions(@RequestParam(TEXT) String text) {
+        return new ResponseEntity(repetitionReportService.createRepetitionReport(text), HttpStatus.OK);
+    }
+
+    /**
+     * Returns statistics about all synonym search api calls.
+     *
+     * @return SynonymSearchDataSummary - wrapper for maps of counted synonym search api calls for PL and EN language.
+     */
+    @GetMapping(value = SYNONYMS + STATISTICS, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<SynonymSearchDataSummary> getSynonymSearchStatistics() {
+        return new ResponseEntity<>(synonymSearchStatisticService.getSynonymSearchStatistics(), HttpStatus.OK);
+    }
+
+    private static Language getLanguage(String language) {
+        return Language.valueOf(language.toUpperCase());
     }
 
 }

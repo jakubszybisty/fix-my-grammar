@@ -1,4 +1,4 @@
-package com.jszybisty.fixmygrammar.service.synonym;
+package com.jszybisty.fixmygrammar.synonym;
 
 import java.util.List;
 

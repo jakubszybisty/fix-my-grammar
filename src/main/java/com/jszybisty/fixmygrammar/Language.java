@@ -1,4 +1,4 @@
-package com.jszybisty.fixmygrammar.service;
+package com.jszybisty.fixmygrammar;
 
 /**
  * Created by jakub on 20.03.2017.
