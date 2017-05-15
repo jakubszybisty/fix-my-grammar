@@ -6,11 +6,13 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * Created by jakub on 06.05.2017.
+ * Immutable class for word and its declensions
  */
 @AllArgsConstructor
 @Getter
 public final class DeclensionEntry {
+    /** Base form of the word */
     private final String normalForm;
+    /** All declensions of the word */
     private final List<String> declensions;
 }

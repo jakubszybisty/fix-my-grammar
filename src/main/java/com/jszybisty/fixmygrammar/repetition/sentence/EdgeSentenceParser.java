@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 @Component
 public class EdgeSentenceParser {
 
+    /** WordBaseFormComparator instance */
     private final WordBaseFormComparator wordBaseFormComparator;
 
     @Autowired
@@ -23,6 +24,7 @@ public class EdgeSentenceParser {
     }
 
 
+    /** Creates edge sentences from sentence list*/
     public List<SentenceProxy> parseSentencesToEdgeSentences(List<Sentence> sentences) {
         return IntStream.range(0, sentences.size() - 1).map(i -> i)
                 .mapToObj(i -> {

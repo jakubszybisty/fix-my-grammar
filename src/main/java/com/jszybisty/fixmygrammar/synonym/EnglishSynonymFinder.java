@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class EnglishSynonymFinder implements SynonymFinder {
 
+    /** Name of the file containing synonyms */
     private static final String SYNONYMS_EN = "synonyms-english.txt";
+    /** List of synonyms read from file */
     private final List<String> WORDS;
 
     @Autowired
@@ -22,6 +24,12 @@ public class EnglishSynonymFinder implements SynonymFinder {
         WORDS = basicContentFileReader.readContentFromFile(SYNONYMS_EN);
     }
 
+    /**
+     * Looks for given word in the WORD fields and returns its synonyms in pretty-printed format
+     *
+     * @param word the word we want synonyms of
+     * @return list of strings - synonyms of the word
+     */
     @Override
     public List<String> findSynonyms(String word) {
         return WORDS.stream().filter(isCorrectWord(word)).collect(Collectors.toList());

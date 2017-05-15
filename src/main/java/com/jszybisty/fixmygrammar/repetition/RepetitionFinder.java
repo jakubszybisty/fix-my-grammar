@@ -16,12 +16,14 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * Created by jakub on 15.04.2017.
+ * Service class for finding repetitions
  */
 @Component
 public class RepetitionFinder {
 
+    /** Instance of WordMetadataProvider */
     private final WordMetadataProvider wordMetadataProvider;
+    /** Instance of SentenceParser */
     private final SentenceParser sentenceParser;
 
     @Autowired
@@ -30,6 +32,7 @@ public class RepetitionFinder {
         this.sentenceParser = sentenceParser;
     }
 
+    /** Takes in list of sentences. Returns collection of repetitions entries in all of these sentences */
     public List<RepetitionEntry> findRepetitions(List<? extends Sentence> sentences) {
         List<RepetitionEntry> repetitionEntries = new ArrayList<>();
         sentences.forEach(s ->

@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 @Component
 public class WordMetadataProvider {
 
+    /** Instance of DeclensionRepository */
     private final DeclensionRepository declensionRepository;
 
     @Autowired
@@ -21,6 +22,7 @@ public class WordMetadataProvider {
         this.declensionRepository = declensionRepository;
     }
 
+    /** Provides word metadata for given declension of the word */
     public Optional<WordMetadata> provideWordMetadata(Word wordDeclension) {
         Optional<DeclensionEntry> declensionEntry = declensionRepository.getDeclensions().stream().filter(containsIgnoreCase(wordDeclension)).findFirst();
         return declensionEntry.map(d -> new WordMetadata(new Word(d.getNormalForm()), wordDeclension));

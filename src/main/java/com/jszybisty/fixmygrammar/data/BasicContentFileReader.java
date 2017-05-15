@@ -15,6 +15,12 @@ import java.util.stream.Collectors;
 @Component
 public class BasicContentFileReader {
 
+    /**
+     * Reads all lines from given file
+     *
+     * @param fileName name of the file
+     * @return Collection of lines from file
+     */
     public List<String> readContentFromFile(String fileName) {
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
         return new BufferedReader(new InputStreamReader(resourceAsStream,

@@ -8,13 +8,16 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * Created by jakub on 06.05.2017.
+ * Immutable class. Contains repetitions of given base word from sentence
  */
 @AllArgsConstructor
 @Getter
 public class RepetitionEntry {
+    /** Base form of the word repetitions */
     private final Word baseWord;
+    /** List of repetitions of base word from sentence*/
     private final List<Word> repetitions;
+    /** Sentence in which repetitions occurred */
     @JsonProperty("sentence")
     private final String formattedSentence;
 }

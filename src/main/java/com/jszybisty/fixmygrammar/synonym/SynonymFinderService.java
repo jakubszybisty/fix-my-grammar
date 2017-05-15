@@ -8,11 +8,12 @@ import java.util.EnumMap;
 import java.util.List;
 
 /**
- * Created by jakub on 20.03.2017.
+ * Strategy pattern to the SynonymFinder
  */
 @Service
 public class SynonymFinderService {
 
+    /**Hold language and its implementation for finding synonyms */
     private EnumMap<Language, SynonymFinder> synonymFinders = new EnumMap<>(Language.class);
 
     @Autowired
@@ -22,6 +23,13 @@ public class SynonymFinderService {
         synonymFinders.put(Language.EN, englishSynonymFinder);
     }
 
+    /**
+     * Depending on the language, selects proper synonym finder instance and returns synonyms of the given word
+     *
+     * @param language  enum representation of language of the word
+     * @param word synonyms of this word are returned
+     * @return list of synonyms
+     */
     public List<String> findSynonyms(Language language, String word) {
         return synonymFinders.get(language).findSynonyms(word);
     }

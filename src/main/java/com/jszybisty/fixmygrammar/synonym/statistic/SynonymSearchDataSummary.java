@@ -6,11 +6,13 @@ import lombok.Getter;
 import java.util.Map;
 
 /**
- * Created by jakub on 07.05.2017.
+ * Immutable class containing polish and english synonym search statistics
  */
 @AllArgsConstructor
 @Getter
 public class SynonymSearchDataSummary {
+    /** Polish synonym search statistics.  */
     private final Map<String, Long> polishSynonymSearches;
+    /** English synonym search statistics.  */
     private final Map<String, Long> englishSynonymSearches;
 }

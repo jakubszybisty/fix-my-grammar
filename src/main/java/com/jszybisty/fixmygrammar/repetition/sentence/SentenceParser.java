@@ -16,12 +16,9 @@ import java.util.regex.Pattern;
 @Component
 public class SentenceParser {
 
-    private static final String SPLIT_BY_WORD_REGEXP = "[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+";
-    private static final String SPLIT_BY_SENTENCE_REGEXP = "(?<=[a-z])\\.\\s+";
-
     public List<Sentence> parseTextToSentences(String text) {
         List<Sentence> sentences = new ArrayList<>();
-        Pattern pattern = Pattern.compile(SPLIT_BY_WORD_REGEXP);
+        Pattern pattern = Pattern.compile("xd");
 
          parseTextToRawSentences(text)
                 .forEach(parseToSentence(sentences, pattern));
@@ -41,6 +38,6 @@ public class SentenceParser {
     }
 
     private List<String> parseTextToRawSentences(String text) {
-        return Arrays.asList(text.split(SPLIT_BY_SENTENCE_REGEXP));
+        return Arrays.asList(text.split("xd"));
     }
 }

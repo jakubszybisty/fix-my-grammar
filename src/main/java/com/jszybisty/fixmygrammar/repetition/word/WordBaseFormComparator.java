@@ -12,6 +12,7 @@ import java.util.Optional;
 @Component
 public class WordBaseFormComparator implements Comparator<Word> {
 
+    /** WordMetadataProvider instance */
     private final WordMetadataProvider wordMetadataProvider;
 
     @Autowired
@@ -19,6 +20,7 @@ public class WordBaseFormComparator implements Comparator<Word> {
         this.wordMetadataProvider = wordMetadataProvider;
     }
 
+    /** Compares if two words have identical base form. Returns 0 if so, returns -1 if words are not equal */
     @Override
     public int compare(Word o1, Word o2) {
         Optional<WordMetadata> o1Metadata = wordMetadataProvider.provideWordMetadata(o1);

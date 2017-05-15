@@ -13,15 +13,26 @@ import java.util.stream.Collectors;
 @Service
 public class PolishSynonymFinder implements SynonymFinder {
 
+    /** List of synonyms read from file */
     private final List<String> WORDS;
+    /** Name of the file containing synonyms */
     private static final String SYNONYMS_PL = "synonyms-polish.txt";
     private static final String SEMICOLON = ";";
 
+    /**
+     * Reads file contents to WORDS field
+     */
     @Autowired
     public PolishSynonymFinder(BasicContentFileReader basicContentFileReader) {
         WORDS = basicContentFileReader.readContentFromFile(SYNONYMS_PL);
     }
 
+    /**
+     * Looks for given word in the WORD fields and returns its synonyms in pretty-printed format
+     *
+     * @param word the word we want synonyms of
+     * @return list of strings - synonyms of the word
+     */
     @Override
     public List<String> findSynonyms(String word) {
         return WORDS.stream()
@@ -30,6 +41,7 @@ public class PolishSynonymFinder implements SynonymFinder {
                 .collect(Collectors.toList());
     }
 
+    /** Beautifies response. Changes semicolons to colons */
     private String beautifyResponse(String word, String row) {
         row = row.replace(word.concat(SEMICOLON), word.concat(" - "));
         row = row.replaceAll(SEMICOLON, ", ");

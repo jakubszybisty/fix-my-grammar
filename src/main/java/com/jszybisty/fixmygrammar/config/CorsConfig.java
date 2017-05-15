@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Created by jszybisty on 4/12/2017.
+ * Configuration class. Add allowed cors mapping to certain HTTP methods
  */
 @Configuration
 public class CorsConfig extends WebMvcConfigurerAdapter {
@@ -16,6 +16,4 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
                 .allowedOrigins("*")
                 .allowedMethods("POST", "GET", "PUT", "DELETE", "PATCH");
     }
-
-
 }

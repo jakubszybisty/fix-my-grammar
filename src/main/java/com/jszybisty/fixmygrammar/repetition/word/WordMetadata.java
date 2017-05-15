@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Created by jakub on 16.04.2017.
+ * Immutable class for word and its declensions.
  */
 @AllArgsConstructor
 @Getter
 @ToString
 public class WordMetadata {
+    /** word base form*/
     private final Word wordBaseForm;
+    /** given declension of the word */
     private final Word wordDeclension;
 }

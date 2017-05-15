@@ -11,13 +11,15 @@ import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 /**
- * Created by jakub on 17.04.2017.
+ * Reads all lines from declension file. Decorator to the BasicContentFileReader class.
  */
 @Component
 public class DeclensionsContentReader {
 
+    /** Regexp splitting string by comma */
     private static final String SPLIT_BY_COMMAS_REGEX = "\\s*,\\s*";
 
+    /**Instance of BasicContentFileReader */
     private final BasicContentFileReader basicContentFileReader;
 
     @Autowired
@@ -25,6 +27,12 @@ public class DeclensionsContentReader {
         this.basicContentFileReader = basicContentFileReader;
     }
 
+    /**
+     * Reads all lines from declension file and merges them to the list of declension entries
+     *
+     * @param fileName name of the file
+     * @return list of DeclensionEntries
+     */
     public List<DeclensionEntry> readContentFromFile(String fileName) {
         return basicContentFileReader.readContentFromFile(fileName)
                 .stream()
@@ -33,6 +41,9 @@ public class DeclensionsContentReader {
                 .entrySet().stream().map(e -> new DeclensionEntry(e.getKey(), e.getValue())).collect(Collectors.toList());
     }
 
+    /**
+     * Merges duplicate keys from file
+     */
     private BinaryOperator<List<String>> mergeForDuplicateKeys() {
         return (l1, l2) -> {
             List<String> mergedList = new ArrayList<>();

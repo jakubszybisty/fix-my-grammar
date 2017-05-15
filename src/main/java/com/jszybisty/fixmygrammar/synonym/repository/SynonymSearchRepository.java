@@ -4,7 +4,7 @@ import com.jszybisty.fixmygrammar.synonym.entity.SynonymSearch;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Created by jakub on 07.05.2017.
+ * Dao class to the SynonymSearch entity.
  */
 public interface SynonymSearchRepository extends JpaRepository<SynonymSearch, Long> {
 

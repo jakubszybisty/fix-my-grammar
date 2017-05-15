@@ -7,12 +7,14 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * Created by jakub on 06.05.2017.
+ * Immutable class containing sentence and its words
  */
 @AllArgsConstructor
 @Getter
 public class Sentence {
+    /** Sentence */
     private String formattedSentence;
+    /** List of the words in the sentence */
     private List<Word> words;
 
     public List<Word> getLastTwoWords() {

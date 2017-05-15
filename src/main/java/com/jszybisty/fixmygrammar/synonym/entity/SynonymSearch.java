@@ -7,20 +7,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * Created by jakub on 07.05.2017.
+ * Entity class of the SynonymSearch
  */
 @NoArgsConstructor
 @Entity
 @Data
 public class SynonymSearch {
 
+    /** Identifier */
     @Id
     @GeneratedValue
     private Long id;
 
+    /** Language of the search */
     @Enumerated(EnumType.STRING)
     private Language language;
 
+    /** Word of the search */
     private String word;
 
     public SynonymSearch(Language language, String word) {
