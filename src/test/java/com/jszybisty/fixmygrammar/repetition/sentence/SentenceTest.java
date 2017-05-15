@@ -23,7 +23,6 @@ public class SentenceTest {
         Sentence sentence = new Sentence("ala ma kota", words);
         List<Word> lastThreeWords = sentence.getLastTwoWords();
         assertEquals(lastThreeWords, Arrays.asList(
-                new Word("ma"),
                 new Word("kota"),
                 new Word("ala")));
     }
